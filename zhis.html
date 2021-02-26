@@ -1,0 +1,61 @@
+雷武秦的账号 20:27:04
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 1400px;
+
+        }
+
+        input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    输入框1： <input type="text"><br />
+    输入框2： <input type="text"><br />
+    输入框3： <input type="text"><br />
+    输入框4： <input type="text"><br />
+    输入框5： <input type="text"><br />
+    输入框6： <input type="text"><br />
+    <script>
+
+        // 1.先获取 所有的ipt  ，
+        // 然后封装一个方法，计时器，清除计时器，并return 一个函数出去作为 每一个输入框事件的 回调函数
+        // 然后将ipt转换成真正的数组 并遍历数组 ，然后给每一项增加添加一个事件
+        const ipt = document.querySelectorAll('input');
+
+        function debounce(fn, wait) {
+
+            let timeout = null;
+            return function () {
+                if (timeout) clearTimeout(timeout);
+                // 直接在使用传参的时候改变this 的指向 ，谁调用这个方法这个this 就把this 改成指向他的this
+                timeout = setTimeout(fn.bind(this), wait);
+            }
+        }
+
+        function handle() {
+            console.log(this.value);
+            console.log(this);
+
+        }
+
+        Array.from(ipt).forEach(function (item) {
+            item.addEventListener('input', debounce(handle, 2000));
+
+        })
+
+
+    </script>
+</body>
+
+</html>
